@@ -1,26 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+class Timer extends React.Component {
+  state = {
+    startTime: null,
+    now: null
+  }
+
+  componentDidMount() {
+    this.setState({
+      startTime: new Date().getTime().toString()
+    })
+  }
+
+  componentDidUpdate() {
+    const currentDate = new Date().getTime()
+    this.setState(prevState => {
+      if (prevState.now !== currentDate) {
+        return {
+          now: currentDate
+        }
+      }
+    })
+  }
+
+
+  render() {
+    return(
+      <div>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          you started at: {this.state.startTime}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        <p>
+          it is now: {this.state.now}
+        </p>
+        <p>
+          it has been: {this.state.now - this.state.startTime} time units
+        </p>
+      </div>
+    )
+  }
+}
+
+class App extends React.Component {
+  
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>
+            time your speedy cube solves.
+          </p>
+        </header>
+        <Timer/>
+      </div>
+    );
+  }
 }
 
 export default App;
