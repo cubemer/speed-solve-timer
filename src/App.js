@@ -24,6 +24,14 @@ class Timer extends React.Component {
     })
   }
 
+  countTime = () => {
+    let counter = 0;
+    const timer = setTimeout((
+      counter += 1
+    ), 1);
+    return timer;
+  }
+
 
   render() {
     return(
