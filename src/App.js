@@ -3,48 +3,49 @@ import './App.css';
 
 class Timer extends React.Component {
   state = {
-    startTime: null,
-    now: null
+    offset: null,
+    clock: 0,
+    interval: null
   }
 
   componentDidMount() {
     this.setState({
-      startTime: new Date().getTime().toString()
+      offset: new Date()
     })
   }
 
   componentDidUpdate() {
-    const currentDate = new Date().getTime()
+    console.log(this.state.offset);
+  }
+  
+  updateClockHandler = () => {
     this.setState(prevState => {
-      if (prevState.now !== currentDate) {
-        return {
-          now: currentDate
-        }
-      }
+      const now = new Date()
+      const d = now - prevState.offset
+
+      return({
+        offset: now,
+        clock: prevState.clock + d
+      })
+      
     })
   }
 
-  countTime = () => {
-    let counter = 0;
-    const timer = setTimeout((
-      counter += 1
-    ), 1);
-    return timer;
+  clearClockHandler = () => {
+    this.setState({
+      offset: new Date(),
+      clock: 0,
+      interval: null
+    })
   }
 
 
   render() {
     return(
       <div>
-        <p>
-          you started at: {this.state.startTime}
-        </p>
-        <p>
-          it is now: {this.state.now}
-        </p>
-        <p>
-          it has been: {this.state.now - this.state.startTime} time units
-        </p>
+        <p>{this.state.clock / 1000}</p>
+        <button onClick={this.updateClockHandler}>start</button>
+        <button onClick={this.clearClockHandler}>clear</button>
       </div>
     )
   }
