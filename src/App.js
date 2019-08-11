@@ -5,20 +5,15 @@ class Timer extends React.Component {
   state = {
     offset: null,
     clock: 0,
-    interval: null
-  }
-
-  componentDidMount() {
-    this.setState({
-      offset: new Date()
-    })
+    interval: null,
+    solves: [],
   }
 
   componentDidUpdate() {
-    console.log(this.state.offset);
+    console.log(this.state.solves);
   }
   
-  updateClockHandler = () => {
+  update = () => {
     this.setState(prevState => {
       const now = new Date()
       const d = now - prevState.offset
@@ -31,21 +26,45 @@ class Timer extends React.Component {
     })
   }
 
+  startClockHandler = () => {
+    if (!this.state.interval) {
+      this.setState({
+        offset: new Date(),
+        interval: setInterval(this.update, 100)
+      })
+    }
+  }
+
+  stopClockHandler = () => {
+    if (this.state.interval) {
+      clearInterval(this.state.interval)
+      this.setState({interval: null})
+    }
+  }
+
   clearClockHandler = () => {
-    this.setState({
-      offset: new Date(),
-      clock: 0,
-      interval: null
+    this.setState(prevState => {
+      return {
+        offset: new Date(),
+        clock: 0,
+        solves: [...prevState.solves, prevState.clock]
+      }
     })
   }
+
+  getAverage = (arr) => (
+    arr.reduce((acc, c) => acc + c) / arr.length
+  )
 
 
   render() {
     return(
       <div>
         <p>{this.state.clock / 1000}</p>
-        <button onClick={this.updateClockHandler}>start</button>
+        <button onClick={this.startClockHandler}>start</button>
+        <button onClick={this.stopClockHandler}>stop</button>
         <button onClick={this.clearClockHandler}>clear</button>
+        <p>{this.state.solves.length === 0 ? 'get your solve on brother' : `average time: ${(this.getAverage(this.state.solves) / 1000).toFixed(2)}s`}</p>
       </div>
     )
   }
