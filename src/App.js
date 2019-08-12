@@ -8,10 +8,6 @@ class Timer extends React.Component {
     interval: null,
     solves: [],
   }
-
-  componentDidUpdate() {
-    console.log(this.state.solves);
-  }
   
   update = () => {
     this.setState(prevState => {
@@ -56,6 +52,15 @@ class Timer extends React.Component {
     arr.reduce((acc, c) => acc + c) / arr.length
   )
 
+  min = (arr) => {
+    let minVal = arr[0];
+    arr.forEach(val => {
+      if (val <= minVal) {
+        minVal = val
+      }
+    });
+    return minVal
+  }
 
   render() {
     return(
@@ -65,6 +70,7 @@ class Timer extends React.Component {
         <button onClick={this.stopClockHandler}>stop</button>
         <button onClick={this.clearClockHandler}>clear</button>
         <p>{this.state.solves.length === 0 ? 'get your solve on brother' : `average time: ${(this.getAverage(this.state.solves) / 1000).toFixed(2)}s`}</p>
+        <p>{this.state.solves.length === 0 ? null : `your fastest solve is: ${(this.min(this.state.solves) / 1000).toFixed(2)}s`}</p>
       </div>
     )
   }
