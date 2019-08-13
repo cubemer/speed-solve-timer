@@ -61,8 +61,17 @@ class Timer extends React.Component {
     });
     return minVal
   }
+  
+  toPTag = (arr) => {
+    let pTagArray = []
+    arr.forEach((val, i) => {
+      pTagArray.push(<p key={i}>{val / 1000}</p>)
+    });
+    return pTagArray;
+  }
 
   render() {
+    let solveHistory = this.toPTag(this.state.solves)
     return(
       <div>
         <p>{this.state.clock / 1000}</p>
@@ -71,6 +80,9 @@ class Timer extends React.Component {
         <button onClick={this.clearClockHandler}>clear</button>
         <p>{this.state.solves.length === 0 ? 'get your solve on brother' : `average time: ${(this.getAverage(this.state.solves) / 1000).toFixed(2)}s`}</p>
         <p>{this.state.solves.length === 0 ? null : `your fastest solve is: ${(this.min(this.state.solves) / 1000).toFixed(2)}s`}</p>
+        <div>
+          {solveHistory}
+        </div>
       </div>
     )
   }
