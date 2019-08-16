@@ -7,6 +7,7 @@ class Timer extends React.Component {
     clock: 0,
     interval: null,
     solves: [],
+    buttonStarts: true
   }
   
   update = () => {
@@ -22,19 +23,20 @@ class Timer extends React.Component {
     })
   }
 
-  startClockHandler = () => {
+  ssButtonClickedHandler = () => {
     if (!this.state.interval) {
       this.setState({
+        buttonStarts: false,
         offset: new Date(),
         interval: setInterval(this.update, 100)
       })
     }
-  }
-
-  stopClockHandler = () => {
     if (this.state.interval) {
       clearInterval(this.state.interval)
-      this.setState({interval: null})
+      this.setState({
+        buttonStarts: true,
+        interval: null
+      })
     }
   }
 
@@ -71,17 +73,27 @@ class Timer extends React.Component {
   }
 
   render() {
-    let solveHistory = this.toPTag(this.state.solves)
+    let solveHistory = this.toPTag(this.state.solves);
+    let ssButton = <button onClick={this.ssButtonClickedHandler}>start</button>
+    if (!this.state.buttonStarts) {
+      ssButton = <button onClick={this.ssButtonClickedHandler}>stop</button>
+    }
     return(
-      <div>
-        <p>{this.state.clock / 1000}</p>
-        <button onClick={this.startClockHandler}>start</button>
-        <button onClick={this.stopClockHandler}>stop</button>
-        <button onClick={this.clearClockHandler}>clear</button>
-        <p>{this.state.solves.length === 0 ? 'get your solve on brother' : `average time: ${(this.getAverage(this.state.solves) / 1000).toFixed(2)}s`}</p>
-        <p>{this.state.solves.length === 0 ? null : `your fastest solve is: ${(this.min(this.state.solves) / 1000).toFixed(2)}s`}</p>
-        <div>
-          {solveHistory}
+      <div className='timer'>
+        <div className='clock'>
+          <p>{this.state.clock / 1000}</p>
+          {ssButton}
+          <button onClick={this.clearClockHandler}>add & clear</button>
+        </div>
+        <div className='display'>
+          <div className='solve-history'>
+            <p>previous solves:</p>
+            {solveHistory}
+          </div>
+          <div className='solve-stats'>
+            <p>{this.state.solves.length === 0 ? 'average time: (not yet available)' : `average time: ${(this.getAverage(this.state.solves) / 1000).toFixed(2)}s`}</p>
+            <p>{this.state.solves.length === 0 ? 'fastest time: (not yet available)' : `fastest time: ${(this.min(this.state.solves) / 1000).toFixed(2)}s`}</p>
+          </div>
         </div>
       </div>
     )
@@ -93,11 +105,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="header">
           <p>
             time your speedy cube solves.
           </p>
-        </header>
+        </header> */}
         <Timer/>
       </div>
     );
