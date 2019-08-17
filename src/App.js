@@ -9,6 +9,12 @@ class Timer extends React.Component {
     solves: [],
     buttonStarts: true
   }
+
+  pragraphEl = React.createRef();
+
+  componentDidMount() {
+    this.pragraphEl.current.focus()
+  }
   
   update = () => {
     this.setState(prevState => {
@@ -40,14 +46,21 @@ class Timer extends React.Component {
     }
   }
 
+  ssButtonTypedHandler = (event) => {
+    if (event.keyCode === 32) {
+      this.ssButtonClickedHandler();
+    }
+  }
+
   clearClockHandler = () => {
     this.setState(prevState => {
       return {
         offset: new Date(),
         clock: 0,
-        solves: [...prevState.solves, prevState.clock]
+        solves: [prevState.clock, ...prevState.solves]
       }
-    })
+    });
+    this.pragraphEl.current.focus();
   }
 
   getAverage = (arr) => (
@@ -74,16 +87,17 @@ class Timer extends React.Component {
 
   render() {
     let solveHistory = this.toPTag(this.state.solves);
-    let ssButton = <button onClick={this.ssButtonClickedHandler}>start</button>
+    let ssButton = <button onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>start</button>
     if (!this.state.buttonStarts) {
-      ssButton = <button onClick={this.ssButtonClickedHandler}>stop</button>
+      ssButton = <button onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>stop</button>
     }
     return(
       <div className='timer'>
         <div className='clock'>
           <p>{this.state.clock / 1000}</p>
           {ssButton}
-          <button onClick={this.clearClockHandler}>add & clear</button>
+          <button onClick={this.clearClockHandler} >add & clear</button>
+          <p tabIndex={-1} onKeyDown={(e) => this.ssButtonTypedHandler(e)} ref={this.pragraphEl}>you can also press space</p>
         </div>
         <div className='display'>
           <div className='solve-history'>
