@@ -28,6 +28,12 @@
   display: flex;
 }
 
+.display h3 {
+  border: 1px solid black;
+  width: 90%;
+  background-color: var(--color-blaze-orange);
+}
+
 .solve-stats {
   width: 68%;
   background-color: var(--color-gray);

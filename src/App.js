@@ -97,14 +97,15 @@ class Timer extends React.Component {
           <p>{this.state.clock / 1000}</p>
           {ssButton}
           <button onClick={this.clearClockHandler} >add & clear</button>
-          <p tabIndex={-1} onKeyDown={(e) => this.ssButtonTypedHandler(e)} ref={this.pragraphEl}>you can also press space</p>
+          <p tabIndex={-1} onKeyDown={(e) => this.ssButtonTypedHandler(e)} ref={this.pragraphEl}>click here to use space</p>
         </div>
         <div className='display'>
           <div className='solve-history'>
-            <p>previous solves:</p>
+            <h3>previous solves:</h3>
             {solveHistory}
           </div>
           <div className='solve-stats'>
+            <h3>solve stats:</h3>
             <p>{this.state.solves.length === 0 ? 'average time: (not yet available)' : `average time: ${(this.getAverage(this.state.solves) / 1000).toFixed(2)}s`}</p>
             <p>{this.state.solves.length === 0 ? 'fastest time: (not yet available)' : `fastest time: ${(this.min(this.state.solves) / 1000).toFixed(2)}s`}</p>
           </div>
