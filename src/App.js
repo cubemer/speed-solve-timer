@@ -87,9 +87,9 @@ class Timer extends React.Component {
 
   render() {
     let solveHistory = this.toPTag(this.state.solves);
-    let ssButton = <button onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>start</button>
+    let ssButton = <button className='ssButton' onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>start</button>
     if (!this.state.buttonStarts) {
-      ssButton = <button onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>stop</button>
+      ssButton = <button className='ssButton'  onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>stop</button>
     }
     return(
       <div className='timer'>
