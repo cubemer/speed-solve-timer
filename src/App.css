@@ -20,11 +20,8 @@
 .clock {
   height: 32%;
   padding-top: 16vh;
-  background-color: var(--color-diamond);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* background-color: #08141c; */
+  background-color: #666259;
 }
 
 .display {
@@ -48,8 +45,87 @@
   background-color: var(--color-spanish-gray);
 }
 
-.ssButton {
+
+.clearButton {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+
+.ssButtonStart {
+	background-color:#0af525;
+  border-radius:50%;
+  border:none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
   height: 90px;
   width: 90px;
-  border-radius: 50%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.ssButtonStart:hover {
+	background-color:#0ae823;
+}
+.ssButtonStart:active {
+	position:relative;
+	top:1px;
+}
+
+.ssButtonStop {
+	background-color:#ed3e43;
+  border-radius:50%;
+  border:none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+  height: 90px;
+  width: 90px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.ssButtonStop:hover {
+	background-color:#d7373c;
+}
+.ssButtonStop:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.clearButton {
+	background-color:#342571;
+  border-radius:50%;
+  border:none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+  height: 60px;
+  width: 60px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px var(--color-spanish-gray);
+}
+.clearButton:hover {
+	background-color:#171031;
+}
+.clearButton:active {
+	position:relative;
+	top:1px;
 }

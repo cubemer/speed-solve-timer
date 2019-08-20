@@ -87,16 +87,16 @@ class Timer extends React.Component {
 
   render() {
     let solveHistory = this.toPTag(this.state.solves);
-    let ssButton = <button className='ssButton' onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>start</button>
+    let ssButton = <button className='ssButtonStart' onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>start</button>
     if (!this.state.buttonStarts) {
-      ssButton = <button className='ssButton'  onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>stop</button>
+      ssButton = <button className='ssButtonStop'  onClick={this.ssButtonClickedHandler} onKeyUp={this.ssButtonTypedHandler}>stop</button>
     }
     return(
       <div className='timer'>
         <div className='clock'>
           <p>{this.state.clock / 1000}</p>
           {ssButton}
-          <button onClick={this.clearClockHandler} >add & clear</button>
+          <button className='clearButton' onClick={this.clearClockHandler} >add & clear</button>
           <p tabIndex={-1} onKeyDown={(e) => this.ssButtonTypedHandler(e)} ref={this.pragraphEl}>click here to use space</p>
         </div>
         <div className='display'>
