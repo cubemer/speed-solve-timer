@@ -94,6 +94,7 @@ class Timer extends React.Component {
     return(
       <div className='timer'>
         <div className='clock'>
+          <h1>Speedy Solve Timer</h1>
           <p>{this.state.clock / 1000}</p>
           {ssButton}
           <button className='clearButton' onClick={this.clearClockHandler} >add & clear</button>
